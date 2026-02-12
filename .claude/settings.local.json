@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Bash(npm install:*)",
+      "Bash(move:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(del \"C:\\\\Users\\\\baile\\\\OneDrive\\\\Documents\\\\Github Repo\\\\TCRUFC website\\\\public\\\\gallery\\\\Team1999-2000.png\")"
+    ]
+  }
+}
