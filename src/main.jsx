@@ -6,6 +6,9 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import AboutUs from './pages/AboutUs'
 import Gallery from './pages/Gallery'
+import Alumni from './pages/Alumni'
+import Fixtures from './pages/Fixtures'
+import Events from './pages/Events'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +26,18 @@ const router = createBrowserRouter([
       {
         path: 'gallery',
         element: <Gallery />,
+      },
+      {
+        path: 'alumni',
+        element: <Alumni />,
+      },
+      {
+        path: 'fixtures',
+        element: <Fixtures />,
+      },
+      {
+        path: 'events',
+        element: <Events />,
       },
     ],
   },

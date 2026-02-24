@@ -13,7 +13,8 @@ export default function Button({
   const variants = {
     primary: 'bg-tcrufc-red text-white hover:bg-opacity-90 hover:shadow-lg',
     secondary: 'bg-transparent border-2 border-white text-white hover:bg-white hover:text-tcrufc-red',
-    gold: 'bg-tcrufc-gold text-tcrufc-blue hover:bg-opacity-90 hover:shadow-lg'
+    gold: 'bg-tcrufc-gold text-tcrufc-blue hover:bg-opacity-90 hover:shadow-lg',
+    blue: 'bg-tcrufc-blue text-white hover:bg-opacity-90 hover:shadow-lg'
   }
 
   const combinedClassName = `${baseStyles} ${variants[variant]} ${className}`
