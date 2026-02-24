@@ -120,53 +120,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Core Values Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <AnimatedSection direction="up" className="text-center mb-16">
-            <span className="text-tcrufc-gold font-bold text-sm uppercase tracking-wider mb-4 block">
-              WHAT DRIVES US
-            </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Our Core <span className="text-tcrufc-gold">Values</span>
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              The principles that have guided TCURUFC for over 150 years
-            </p>
-          </AnimatedSection>
-
-          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" staggerDelay={0.15}>
-            <StaggerItem direction="up">
-              <ValueCard
-                icon={<TrophyIcon className="w-8 h-8 text-white" />}
-                title="Excellence"
-                description="Striving for the highest standards on and off the pitch, maintaining the proud tradition of Trinity rugby."
-              />
-            </StaggerItem>
-            <StaggerItem direction="up">
-              <ValueCard
-                icon={<PeopleIcon className="w-8 h-8 text-white" />}
-                title="Brotherhood"
-                description="Forging lifelong bonds through shared experiences, challenges, and victories together as one team."
-              />
-            </StaggerItem>
-            <StaggerItem direction="up">
-              <ValueCard
-                icon={<HeartIcon className="w-8 h-8 text-white" />}
-                title="Respect"
-                description="Honoring our opponents, officials, and the game itself with integrity and sportsmanship."
-              />
-            </StaggerItem>
-            <StaggerItem direction="up">
-              <ValueCard
-                icon={<TargetIcon className="w-8 h-8 text-white" />}
-                title="Commitment"
-                description="Dedicated to continuous improvement, supporting each other through every training session and match."
-              />
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
-      </section>
+  
 
       {/* History Timeline Section */}
       <section className="py-24 bg-white">

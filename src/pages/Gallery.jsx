@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
+
 import AnimatedSection, { StaggerContainer, StaggerItem, ScaleOnView } from '../components/AnimatedSection'
 import { CameraIcon } from '../components/Icons'
 
@@ -377,22 +378,42 @@ const galleryPhotos = [
   },
 ]
 
-// ============================================================================
-// ERAS — Add or rename eras here. Each era's `id` must match what you use above.
-// ============================================================================
-const eras = [
-  { id: 'all', label: 'All Photos' },
-  { id: '1880s-1970s', label: '1880s-1970s' },
-  { id: '1980s-2000s', label: '1980s-2000s' },
-  { id: '2010s-Today', label: '2010s-Today' },
-]
-
 export default function Gallery() {
-  const [selectedEra, setSelectedEra] = useState('all')
+  const [lightboxPhoto, setLightboxPhoto] = useState(null)
 
-  const filteredPhotos = selectedEra === 'all'
-    ? galleryPhotos
-    : galleryPhotos.filter(photo => photo.era === selectedEra)
+  const recentPhotos = galleryPhotos.filter(photo => photo.year >= 1975).slice().reverse()
+  const archivedPhotos = galleryPhotos.filter(photo => photo.year < 1975).slice().reverse()
+
+  const PhotoCard = ({ photo, index }) => (
+    <motion.div
+      key={photo.id}
+      layout
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+      onClick={() => setLightboxPhoto(photo)}
+    >
+      <div className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden">
+        <img
+          src={`/gallery/${photo.file}`}
+          alt={photo.title}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-tcrufc-blue bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+          <span className="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Click to enlarge</span>
+        </div>
+      </div>
+      <div className="p-4">
+        <h3 className="font-bold text-lg text-tcrufc-blue mb-1">{photo.title}</h3>
+        {photo.description && (
+          <p className="text-gray-600 text-sm mb-1">{photo.description}</p>
+        )}
+        <p className="text-gray-500 text-sm">Year: {photo.year}</p>
+      </div>
+    </motion.div>
+  )
 
   return (
     <div>
@@ -429,106 +450,46 @@ export default function Gallery() {
         </div>
       </section>
 
-      {/* Gallery Section */}
+      {/* Last 50 Years Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
-          {/* Filter Bar */}
-          <AnimatedSection direction="up" className="mb-12">
-            <div className="flex items-center gap-4 flex-wrap">
-              <div className="flex items-center gap-2 text-gray-700">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                </svg>
-                <span className="font-semibold">Filter by era:</span>
-              </div>
-
-              <div className="flex gap-3 flex-wrap">
-                {eras.map((era, index) => (
-                  <motion.button
-                    key={era.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    onClick={() => setSelectedEra(era.id)}
-                    className={`px-6 py-2 rounded-full font-medium transition-all ${
-                      selectedEra === era.id
-                        ? 'bg-tcrufc-blue text-white shadow-lg'
-                        : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
-                    }`}
-                  >
-                    {era.label}
-                  </motion.button>
-                ))}
-              </div>
-            </div>
+          <AnimatedSection direction="up" className="mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-tcrufc-blue">
+              Last 50 Years
+            </h2>
           </AnimatedSection>
 
-          {/* Photo Grid */}
-          <motion.div
-            layout
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
+          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AnimatePresence mode="popLayout">
-              {filteredPhotos.map((photo, index) => (
-                <motion.div
-                  key={photo.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-                >
-                {/* Era Badge */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-tcrufc-gold text-tcrufc-blue px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                    {photo.era}
-                  </span>
-                </div>
-
-                {/* Photo Container */}
-                <div className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden">
-                  <img
-                    src={`/gallery/${photo.file}`}
-                    alt={photo.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-tcrufc-blue bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                </div>
-
-                {/* Photo Info */}
-                <div className="p-4">
-                  <h3 className="font-bold text-lg text-tcrufc-blue mb-1">
-                    {photo.title}
-                  </h3>
-                  {photo.description && (
-                    <p className="text-gray-600 text-sm mb-1">
-                      {photo.description}
-                    </p>
-                  )}
-                  <p className="text-gray-500 text-sm">
-                    Year: {photo.year}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+              {recentPhotos.map((photo, index) => (
+                <PhotoCard key={photo.id} photo={photo} index={index} />
+              ))}
             </AnimatePresence>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Empty State */}
-          {filteredPhotos.length === 0 && (
-            <AnimatedSection direction="up" className="text-center py-20">
-              <CameraIcon className="w-24 h-24 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-gray-700 mb-2">
-                No photos found
-              </h3>
-              <p className="text-gray-500">
-                Try selecting a different era
-              </p>
-            </AnimatedSection>
-          )}
+      {/* Divider */}
+      <div className="container mx-auto px-6">
+        <hr className="border-gray-300" />
+      </div>
+
+      {/* Archived Photos Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <AnimatedSection direction="up" className="mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-tcrufc-blue">
+              Archived Photos
+            </h2>
+          </AnimatedSection>
+
+          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <AnimatePresence mode="popLayout">
+              {archivedPhotos.map((photo, index) => (
+                <PhotoCard key={photo.id} photo={photo} index={index} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
@@ -548,6 +509,55 @@ export default function Gallery() {
           </AnimatedSection>
         </div>
       </section>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxPhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 p-4"
+            onClick={() => setLightboxPhoto(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="relative max-w-5xl w-full max-h-[90vh] flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setLightboxPhoto(null)}
+                className="absolute -top-12 right-0 text-white hover:text-tcrufc-gold transition-colors text-lg font-semibold flex items-center gap-2"
+              >
+                <span>Close</span>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+
+              {/* Image */}
+              <img
+                src={`/gallery/${lightboxPhoto.file}`}
+                alt={lightboxPhoto.title}
+                className="w-full max-h-[75vh] object-contain rounded-t-xl bg-black"
+              />
+
+              {/* Info Bar */}
+              <div className="bg-white rounded-b-xl p-4 flex items-center justify-between">
+                <div>
+                  <h3 className="font-bold text-lg text-tcrufc-blue">{lightboxPhoto.title}</h3>
+                  <p className="text-gray-600 text-sm">{lightboxPhoto.description}</p>
+                </div>
+                <span className="text-tcrufc-gold font-bold text-lg">{lightboxPhoto.year}</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

@@ -44,15 +44,6 @@ export default function Home() {
             Trinity Christs Rugby Union Football Club
           </motion.h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-xl md:text-2xl text-white max-w-3xl mx-auto mb-12"
-          >
-            Over a century of excellence, tradition, and brotherhood on the rugby pitch
-          </motion.p>
-
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -60,12 +51,14 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 1 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button variant="primary" to="/about">
-              Discover Our Story
-              <ChevronRightIcon />
+            <Button variant="primary" to="/fixtures">
+              Fixtures
             </Button>
-            <Button variant="secondary" to="/gallery">
+            <Button variant="gold" to="/gallery">
               View Gallery
+            </Button>
+            <Button variant="blue" to="/alumni">
+              Alumni
             </Button>
           </motion.div>
         </div>
@@ -73,22 +66,6 @@ export default function Home() {
 
       {/* Stats Section */}
       <section className="bg-tcrufc-blue py-20">
-        <div className="container mx-auto px-6">
-          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-12" staggerDelay={0.15}>
-            <StaggerItem direction="up">
-              <StatCard number="100+" label="Years of History" />
-            </StaggerItem>
-            <StaggerItem direction="up">
-              <StatCard number="50+" label="Cuppers Titles" />
-            </StaggerItem>
-            <StaggerItem direction="up">
-              <StatCard number="1000+" label="Alumni Network" />
-            </StaggerItem>
-            <StaggerItem direction="up">
-              <StatCard number="30+" label="Active Players" />
-            </StaggerItem>
-          </StaggerContainer>
-        </div>
       </section>
 
       {/* Heritage Section */}
@@ -152,11 +129,15 @@ export default function Home() {
 
           <AnimatedSection direction="up" delay={0.3}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="secondary">
+              <Button
+                variant="secondary"
+                as="a"
+                href="mailto:baileyliu41@gmail.com"
+              >
                 <PeopleIcon className="w-5 h-5" />
                 Contact Us
               </Button>
-              <Button variant="secondary">
+              <Button variant="secondary" to="/events">
                 <CalendarIcon className="w-5 h-5" />
                 Upcoming Events
               </Button>

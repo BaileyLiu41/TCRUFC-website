@@ -39,6 +39,30 @@ export default function Header() {
           >
             Gallery
           </Link>
+          <Link
+            to="/alumni"
+            className={`text-white font-medium hover:text-tcrufc-gold transition-colors ${
+              isActive('/alumni') ? 'border-b-2 border-tcrufc-gold' : ''
+            }`}
+          >
+            Alumni
+          </Link>
+          <Link
+            to="/fixtures"
+            className={`text-white font-medium hover:text-tcrufc-gold transition-colors ${
+              isActive('/fixtures') ? 'border-b-2 border-tcrufc-gold' : ''
+            }`}
+          >
+            Fixtures
+          </Link>
+          <Link
+            to="/events"
+            className={`text-white font-medium hover:text-tcrufc-gold transition-colors ${
+              isActive('/events') ? 'border-b-2 border-tcrufc-gold' : ''
+            }`}
+          >
+            Events
+          </Link>
         </div>
       </nav>
     </header>
