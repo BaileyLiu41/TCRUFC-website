@@ -188,6 +188,27 @@ export default function Home() {
           </AnimatedSection>
         </div>
       </section>
+
+      {/* Captain's Honours Board */}
+      <section className="py-8 bg-white">
+        <div className="container mx-auto px-6">
+          <AnimatedSection direction="up" className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-tcrufc-blue mb-4">
+              Captains through the years
+            </h2>
+          </AnimatedSection>
+          <AnimatedSection direction="up" delay={0.2} className="flex justify-center">
+            <div style={{ width: "50%", maxWidth: "700px" }}>
+              <img
+                src="/captains_honours_board.png"
+                alt="Captain's Honours Board"
+                className="w-full h-auto rounded-xl shadow-lg"
+                style={{ objectFit: "contain" }}
+              />
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
     </div>
   )
 }
