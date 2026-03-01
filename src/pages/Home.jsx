@@ -80,7 +80,7 @@ export default function Home() {
             Trinity Christs Rugby Union Football Club
           </motion.h2>
 
-          {/* CTA Buttons — HIDDEN: uncomment to restore Fixtures / Gallery / Alumni buttons
+          {/* CTA Buttons — HIDDEN: uncomment it to restore Fixtures / Gallery / Alumni buttons
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
