@@ -14,12 +14,19 @@ import { loadPdfJs } from '../utils/loadPdfJs'
 export default function Home() {
   const thumbnailRef = useRef(null)
 
-  // Render first PDF page as the thumbnail image
+  // Render first PDF page as the thumbnail image.
+  // The `cancelled` flag prevents React StrictMode's double-invocation from
+  // firing two concurrent renders to the same canvas (which caused random flips).
   useEffect(() => {
+    let cancelled = false
+    let renderTask = null
+
     loadPdfJs().then(pdfjsLib => {
+      if (cancelled) return
       pdfjsLib.getDocument('/teams-down-the-years.pdf').promise
-        .then(pdf => pdf.getPage(1))
+        .then(pdf => { if (!cancelled) return pdf.getPage(1) })
         .then(page => {
+          if (!page || cancelled) return
           const canvas = thumbnailRef.current
           if (!canvas) return
           const vp = page.getViewport({ scale: 1 })
@@ -28,15 +35,20 @@ export default function Home() {
           const scaledVp = page.getViewport({ scale })
           canvas.width = scaledVp.width
           canvas.height = scaledVp.height
-          page.render({ canvasContext: canvas.getContext('2d'), viewport: scaledVp })
+          renderTask = page.render({ canvasContext: canvas.getContext('2d'), viewport: scaledVp })
         })
     })
+
+    return () => {
+      cancelled = true
+      renderTask?.cancel()
+    }
   }, [])
 
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-tcrufc-blue via-purple-900 to-tcrufc-red overflow-hidden">
+      <section className="relative min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-tcrufc-blue via-purple-900 to-tcrufc-red overflow-hidden">
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
         <div className="relative z-10 container mx-auto px-6 text-center">

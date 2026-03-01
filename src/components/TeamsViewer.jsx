@@ -107,10 +107,17 @@ export default function TeamsViewer() {
     })
   }, [renderPage, updateLabel, updateButtons, lightboxOpen, openLightbox])
 
-  // Load PDF
+  // Load PDF.
+  // The `cancelled` flag prevents React StrictMode's double-invocation from
+  // firing two concurrent renders to the same canvas (which caused random flips).
   useEffect(() => {
+    let cancelled = false
+    let renderTask = null
+
     loadPdfJs().then(pdfjsLib => {
+      if (cancelled) return
       pdfjsLib.getDocument(PDF_FILE).promise.then(async pdf => {
+        if (cancelled) return
         pdfDocRef.current = pdf
         setLoading(false)
 
@@ -119,6 +126,7 @@ export default function TeamsViewer() {
           const outline = await pdf.getOutline()
           if (outline) {
             for (const item of outline) {
+              if (cancelled) break
               if (item.dest) {
                 const dest = typeof item.dest === 'string'
                   ? await pdf.getDestination(item.dest)
@@ -133,16 +141,23 @@ export default function TeamsViewer() {
           }
         } catch (_) { /* no outline — silently ignore */ }
 
+        if (cancelled) return
         const canvas = mainCanvasRef.current
         renderPage(1, canvas, canvas.getContext('2d')).then(() => {
-          updateLabel()
-          updateButtons()
+          if (!cancelled) {
+            updateLabel()
+            updateButtons()
+          }
         })
       }).catch(() => {
-        setLoading(false)
-        setLoadError(true)
+        if (!cancelled) {
+          setLoading(false)
+          setLoadError(true)
+        }
       })
     })
+
+    return () => { cancelled = true }
   }, [renderPage, updateLabel, updateButtons])
 
   // Keyboard navigation
