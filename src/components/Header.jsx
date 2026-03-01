@@ -23,6 +23,7 @@ export default function Header() {
           >
             Home
           </Link>
+          {/* HIDDEN — uncomment to restore About Us nav link
           <Link
             to="/about"
             className={`text-white font-medium hover:text-tcrufc-gold transition-colors ${
@@ -31,6 +32,8 @@ export default function Header() {
           >
             About Us
           </Link>
+          */}
+          {/* HIDDEN — uncomment to restore Gallery nav link
           <Link
             to="/gallery"
             className={`text-white font-medium hover:text-tcrufc-gold transition-colors ${
@@ -39,6 +42,8 @@ export default function Header() {
           >
             Gallery
           </Link>
+          */}
+          {/* HIDDEN — uncomment to restore Alumni nav link
           <Link
             to="/alumni"
             className={`text-white font-medium hover:text-tcrufc-gold transition-colors ${
@@ -47,6 +52,8 @@ export default function Header() {
           >
             Alumni
           </Link>
+          */}
+          {/* HIDDEN — uncomment to restore Fixtures nav link
           <Link
             to="/fixtures"
             className={`text-white font-medium hover:text-tcrufc-gold transition-colors ${
@@ -55,6 +62,8 @@ export default function Header() {
           >
             Fixtures
           </Link>
+          */}
+          {/* HIDDEN — uncomment to restore Events nav link
           <Link
             to="/events"
             className={`text-white font-medium hover:text-tcrufc-gold transition-colors ${
@@ -63,6 +72,7 @@ export default function Header() {
           >
             Events
           </Link>
+          */}
         </div>
       </nav>
     </header>

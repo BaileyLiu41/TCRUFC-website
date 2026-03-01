@@ -4,11 +4,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Layout from './components/Layout'
 import Home from './pages/Home'
-import AboutUs from './pages/AboutUs'
-import Gallery from './pages/Gallery'
-import Alumni from './pages/Alumni'
-import Fixtures from './pages/Fixtures'
-import Events from './pages/Events'
+// import AboutUs from './pages/AboutUs'   // HIDDEN — uncomment to restore
+import TeamsPage from './pages/TeamsPage'
+// import Gallery from './pages/Gallery'   // HIDDEN — uncomment to restore
+// import Alumni from './pages/Alumni'     // HIDDEN — uncomment to restore
+// import Fixtures from './pages/Fixtures' // HIDDEN — uncomment to restore
+// import Events from './pages/Events'     // HIDDEN — uncomment to restore
 
 const router = createBrowserRouter([
   {
@@ -19,27 +20,17 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      {
-        path: 'about',
-        element: <AboutUs />,
-      },
-      {
-        path: 'gallery',
-        element: <Gallery />,
-      },
-      {
-        path: 'alumni',
-        element: <Alumni />,
-      },
-      {
-        path: 'fixtures',
-        element: <Fixtures />,
-      },
-      {
-        path: 'events',
-        element: <Events />,
-      },
+      // { path: 'about', element: <AboutUs /> },        // HIDDEN — uncomment to restore
+      // { path: 'gallery',  element: <Gallery /> },  // HIDDEN — uncomment to restore
+      // { path: 'alumni',   element: <Alumni /> },   // HIDDEN — uncomment to restore
+      // { path: 'fixtures', element: <Fixtures /> }, // HIDDEN — uncomment to restore
+      // { path: 'events',   element: <Events /> },   // HIDDEN — uncomment to restore
     ],
+  },
+  {
+    // Standalone full-screen page — no Layout/header
+    path: '/teams',
+    element: <TeamsPage />,
   },
 ])
 

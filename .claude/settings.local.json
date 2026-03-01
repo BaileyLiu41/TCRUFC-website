@@ -8,7 +8,8 @@
       "Bash(pip install:*)",
       "Bash(python:*)",
       "Bash(del \"C:\\\\Users\\\\baile\\\\OneDrive\\\\Documents\\\\Github Repo\\\\TCRUFC website\\\\public\\\\gallery\\\\Team1999-2000.png\")",
-      "Bash(npx vite build:*)"
+      "Bash(npx vite build:*)",
+      "Bash(npm run:*)"
     ]
   }
 }
